@@ -1,0 +1,58 @@
+cmake:
+  application:
+    configuration-dir: 'D:/zephyrproject/app'
+    source-dir: 'D:/zephyrproject/app'
+  board:
+    name: 'esp32c3_supermini'
+    path:
+     - 'D:/zephyrproject/zephyr/boards/others/esp32c3_supermini'
+    qualifiers: 'esp32c3'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - 'D:/zephyrproject/zephyr/dts/bindings'
+    files:
+     - 'D:/zephyrproject/zephyr/boards/others/esp32c3_supermini/esp32c3_supermini.dts'
+    include-dirs:
+     - 'D:/zephyrproject/modules/hal/ambiq/dts'
+     - 'D:/zephyrproject/modules/hal/atmel/include'
+     - 'D:/zephyrproject/modules/hal/bouffalolab/include'
+     - 'D:/zephyrproject/modules/hal/bouffalolab/include/zephyr'
+     - 'D:/zephyrproject/modules/hal/gigadevice/include'
+     - 'D:/zephyrproject/modules/hal/microchip/include'
+     - 'D:/zephyrproject/modules/hal/microchip/dts'
+     - 'D:/zephyrproject/modules/hal/nuvoton/dts'
+     - 'D:/zephyrproject/modules/hal/nxp/dts'
+     - 'D:/zephyrproject/modules/hal/stm32/dts'
+     - 'D:/zephyrproject/modules/hal/ti/dts'
+     - 'D:/zephyrproject/zephyr/include'
+     - 'D:/zephyrproject/zephyr/include/zephyr'
+     - 'D:/zephyrproject/zephyr/dts/common'
+     - 'D:/zephyrproject/zephyr/dts/vendor'
+     - 'D:/zephyrproject/zephyr/dts/rx'
+     - 'D:/zephyrproject/zephyr/dts/x86'
+     - 'D:/zephyrproject/zephyr/dts/xtensa'
+     - 'D:/zephyrproject/zephyr/dts/sparc'
+     - 'D:/zephyrproject/zephyr/dts/riscv'
+     - 'D:/zephyrproject/zephyr/dts/posix'
+     - 'D:/zephyrproject/zephyr/dts/arm64'
+     - 'D:/zephyrproject/zephyr/dts/arm'
+     - 'D:/zephyrproject/zephyr/dts/arc'
+     - 'D:/zephyrproject/zephyr/dts'
+  kconfig:
+    files:
+     - 'D:/zephyrproject/zephyr/boards/others/esp32c3_supermini/esp32c3_supermini_defconfig'
+     - 'D:/zephyrproject/app/prj.conf'
+    user-files:
+     - 'D:/zephyrproject/app/prj.conf'
+  toolchain:
+    name: 'zephyr'
+    path: 'D:/zephyr-sdk-0.17.4'
+  zephyr:
+    version: '4.2.0'
+    zephyr-base: 'D:/zephyrproject/zephyr'
+version: '0.1.0'
+west:
+  command: 'D:\zephyrproject\.venv\Scripts\west build -b esp32s3_supermini'
+  topdir: 'D:\zephyrproject'
+  version: '1.5.0'

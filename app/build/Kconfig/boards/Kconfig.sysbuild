@@ -1,0 +1,2 @@
+# Load Sysbuild board Kconfig descriptions.
+osource "D:/zephyrproject/zephyr/boards/others/esp32c3_supermini/Kconfig.sysbuild"

@@ -1,0 +1,2 @@
+# Load board Kconfig descriptions.
+osource "D:/zephyrproject/zephyr/boards/others/esp32c3_supermini/Kconfig.esp32c3_supermini"
