@@ -1,4 +1,0 @@
-west:
-  command: D:\zephyrproject\.venv\Scripts\west build -b esp32s3_supermini
-  topdir: D:\zephyrproject
-  version: 1.5.0

@@ -1,2 +1,0 @@
-# Load Zephyr board defconfig descriptions.
-osource "D:/zephyrproject/zephyr/boards/others/esp32c3_supermini/Kconfig.defconfig"
