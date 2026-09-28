@@ -1,5 +1,14 @@
 / {
     aliases {
-        app-led = &led0;
+        app-led = &board_led;
+        led0 = &board_led;
+    };
+
+    leds {
+        compatible = "gpio-leds";
+        board_led: led_0 {
+            gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
+            label = "SuperMini User LED";
+        };
     };
 };
