@@ -1,2 +1,1 @@
-CONFIG_SOC_SERIES_ESP32C3=y
-CONFIG_SOC_ESP32C3_FX4MB=y
+# Empty defconfig - SoC settings handled by Hardware Model v2

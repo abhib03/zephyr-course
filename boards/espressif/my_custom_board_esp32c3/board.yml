@@ -1,6 +1,5 @@
 board:
   name: my_custom_board_esp32c3
-  full_name: My Custom ESP32-C3 Board
   vendor: espressif
   socs:
     - name: esp32c3
