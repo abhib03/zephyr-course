@@ -1,0 +1,19 @@
+identifier: my_custom_board_esp32c3
+name: MY_CUSTOM_BOARD_ESP32-C3
+type: mcu
+arch: riscv
+toolchain:
+  - zephyr
+supported:
+  - adc
+  - gpio
+  - i2c
+  - i2s
+  - watchdog
+  - uart
+  - dma
+  - pwm
+  - spi
+  - counter
+  - entropy
+vendor: espressif
