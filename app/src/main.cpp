@@ -1,6 +1,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/sensor.h>
+#include <zephyr/drivers/sensor/led_sensor.h>
 #include <zephyr/sys/printk.h>
 
 int main()
@@ -12,7 +13,9 @@ printk("LED sensor device not ready!\n");
 return 0;
 }
 
-printk("Starting LED Sensor loop from C++...\n");
+printk("Starting LED Sensor loop with custom extension API...\n");
+
+int count = 0;
 
 while (true) {
 sensor_value val{};
@@ -21,10 +24,18 @@ sensor_value val{};
 sensor_sample_fetch(dev);
 k_msleep(1000);
 
-/* Step 2: Get channel -> Turns LED OFF */
+/* Step 2: Get channel -> Turns LED OFF and increments by step */
 sensor_channel_get(dev, SENSOR_CHAN_ALL, &val);
 printk("Sensor reading: %d\n", val.val1);
 k_msleep(1000);
+
+count++;
+
+/* Demonstrate custom extension API altering dynamic struct */
+if (count == 3) {
+printk(">>> Calling custom extension API: led_sensor_set_step(dev, 10) <<<\n");
+led_sensor_set_step(dev, 10);
+}
 }
 
 return 0;

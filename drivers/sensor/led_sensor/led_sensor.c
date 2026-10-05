@@ -8,6 +8,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/logging/log.h>
+#include <zephyr/drivers/sensor/led_sensor.h>
 
 LOG_MODULE_REGISTER(LED_SENSOR, CONFIG_SENSOR_LOG_LEVEL);
 
@@ -16,12 +17,13 @@ struct gpio_dt_spec led;
 };
 
 struct led_sensor_data {
-int dummy_val;
+int val;
+int step;
 };
 
 static int led_sensor_sample_fetch(const struct device *dev, enum sensor_channel chan)
 {
-const struct led_sensor_config *cfg = dev->config;
+const struct led_sensor_config *cfg = (const struct led_sensor_config *)dev->config;
 
 gpio_pin_set_dt(&cfg->led, 1);
 LOG_INF("sensor_sample_fetch: LED turned ON");
@@ -33,14 +35,29 @@ static int led_sensor_channel_get(const struct device *dev,
   enum sensor_channel chan,
   struct sensor_value *val)
 {
-const struct led_sensor_config *cfg = dev->config;
-struct led_sensor_data *data = dev->data;
+const struct led_sensor_config *cfg = (const struct led_sensor_config *)dev->config;
+struct led_sensor_data *data = (struct led_sensor_data *)dev->data;
 
 gpio_pin_set_dt(&cfg->led, 0);
 LOG_INF("sensor_channel_get: LED turned OFF");
 
-val->val1 = data->dummy_val++;
+data->val += data->step;
+val->val1 = data->val;
 val->val2 = 0;
+
+return 0;
+}
+
+/* Custom Extension API Implementation */
+int led_sensor_set_step(const struct device *dev, int step)
+{
+if (dev == NULL) {
+return -EINVAL;
+}
+
+struct led_sensor_data *data = (struct led_sensor_data *)dev->data;
+data->step = step;
+LOG_INF("Custom API: Step size changed to %d in dynamic data struct", step);
 
 return 0;
 }
@@ -52,7 +69,8 @@ static const struct sensor_driver_api led_sensor_api = {
 
 static int led_sensor_init(const struct device *dev)
 {
-const struct led_sensor_config *cfg = dev->config;
+const struct led_sensor_config *cfg = (const struct led_sensor_config *)dev->config;
+struct led_sensor_data *data = (struct led_sensor_data *)dev->data;
 
 if (!gpio_is_ready_dt(&cfg->led)) {
 LOG_ERR("LED GPIO device not ready");
@@ -64,6 +82,9 @@ if (ret < 0) {
 LOG_ERR("Failed to configure LED pin: %d", ret);
 return ret;
 }
+
+data->val = 0;
+data->step = 1;
 
 LOG_INF("LED Sensor initialized successfully");
 return 0;
