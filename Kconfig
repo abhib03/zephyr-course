@@ -1,0 +1,4 @@
+mainmenu "Zephyr Course Application"
+
+source "Kconfig.zephyr"
+rsource "drivers/Kconfig"

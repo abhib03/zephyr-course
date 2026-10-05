@@ -1,30 +1,31 @@
-#include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
-#include <zephyr/logging/log.h>
+#include <zephyr/device.h>
+#include <zephyr/drivers/sensor.h>
+#include <zephyr/sys/printk.h>
 
-#define SLEEP_TIME_MS 1000
-
-/* The devicetree node identifier for the "led0" alias. */
-#define LED_NODE DT_ALIAS(led0)
-
-static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
-
-LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
-
-int main(void)
+int main()
 {
-    bool led_state = true;
+const struct device *const dev = DEVICE_DT_GET_ONE(zephyr_led_sensor);
 
-    if (!gpio_is_ready_dt(&led)) return 0;
+if (!device_is_ready(dev)) {
+printk("LED sensor device not ready!\n");
+return 0;
+}
 
-    if (gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE) < 0) return 0;
+printk("Starting LED Sensor loop from C++...\n");
 
-    while (1) {
-        if (gpio_pin_toggle_dt(&led) < 0) return 0;
+while (true) {
+sensor_value val{};
 
-        led_state = !led_state;
-        LOG_INF("LED state: %s", led_state ? "ON" : "OFF");
-        k_msleep(SLEEP_TIME_MS);
-    }
-    return 0;
+/* Step 1: Fetch sample -> Turns LED ON */
+sensor_sample_fetch(dev);
+k_msleep(1000);
+
+/* Step 2: Get channel -> Turns LED OFF */
+sensor_channel_get(dev, SENSOR_CHAN_ALL, &val);
+printk("Sensor reading: %d\n", val.val1);
+k_msleep(1000);
+}
+
+return 0;
 }

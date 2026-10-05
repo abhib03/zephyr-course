@@ -1,0 +1,11 @@
+description: Fake sensor driven by an on-board LED
+
+compatible: "zephyr,led-sensor"
+
+include: base.yaml
+
+properties:
+  led-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO connected to the LED

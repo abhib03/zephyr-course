@@ -1,0 +1,7 @@
+menuconfig LED_SENSOR
+bool "LED Sensor driver"
+default y
+depends on DT_HAS_ZEPHYR_LED_SENSOR_ENABLED
+select GPIO
+help
+  Enable custom LED sensor driver.
