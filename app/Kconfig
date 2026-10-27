@@ -1,5 +1,5 @@
-# Source Zephyr base Kconfig tree
-source "Kconfig.zephyr"
+# Source base Zephyr Kconfig tree
+source "$(ZEPHYR_BASE)/Kconfig"
 
 # Source out-of-tree LED sensor driver Kconfig
 rsource "../drivers/sensor/led_sensor/Kconfig"
@@ -12,5 +12,12 @@ default 1000
 range 0 5000
 help
   Duration of the LED fade cycle in milliseconds (0 to 5000 ms).
+
+config APP_HEARTBEAT_PERIOD_MS
+int "Heartbeat period in ms"
+default 1000
+range 100 10000
+help
+  Period between LED heartbeat toggles in milliseconds.
 
 endmenu

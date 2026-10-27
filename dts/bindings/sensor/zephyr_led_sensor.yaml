@@ -1,0 +1,9 @@
+description: Custom LED sensor driver
+compatible: "zephyr,led-sensor"
+include: sensor-device.yaml
+
+properties:
+  led-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO pin connected to the LED sensor

@@ -1,4 +1,16 @@
 / {
+aliases {
+app-led = &led0;
+};
+
+leds {
+compatible = "gpio-leds";
+led0: led_0 {
+gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
+label = "Onboard LED";
+};
+};
+
 led_sensor: led_sensor_dev {
 compatible = "zephyr,led-sensor";
 led-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
