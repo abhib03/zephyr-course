@@ -1,4 +1,16 @@
-mainmenu "LED Sensor Application"
-
+# Source Zephyr base Kconfig tree
 source "Kconfig.zephyr"
-rsource "../drivers/Kconfig"
+
+# Source out-of-tree LED sensor driver Kconfig
+rsource "../drivers/sensor/led_sensor/Kconfig"
+
+menu "Application Configuration"
+
+config LED_FADE_DURATION
+int "LED fade duration (ms)"
+default 1000
+range 0 5000
+help
+  Duration of the LED fade cycle in milliseconds (0 to 5000 ms).
+
+endmenu
